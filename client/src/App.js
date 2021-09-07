@@ -55,20 +55,10 @@ function App() {
     setRecipes(updateRecipes)
   };
 
-  const deleteRecipe = async (id) => {
-    try{ 
-      await axios.delete(`/api/recipes/${id}`);
-      const filterRecipes = recipes.filter((recipe) => recipe.id !== id);
-      setRecipes(filterRecipes);
-  } catch {
-    alert("Hold up jelly belly, something went wrong.");
-  }
-};
-
   const getForm = () => {
     return showForm ? <RecipeForm addRecipe={addRecipe}/> :
            editRecipe ? <RecipeForm {...editRecipe} updateRecipe={updateRecipe} setEditRecipe={setEditRecipe}/> :
-           <Recipes recipes={recipes} deleteRecipe={deleteRecipe} clickHandler={clickHandler} />
+           <Recipes recipes={recipes} clickHandler={clickHandler} />
   };
 
   return (
