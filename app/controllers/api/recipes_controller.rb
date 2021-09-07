@@ -24,7 +24,7 @@ class Api::RecipesController < ApplicationController
 
   def destroy
     recipe = Recipe.find(params[:id]).destroy
-    render json: fact
+    render json: recipe.destroy
   end
 
   private
@@ -32,8 +32,6 @@ class Api::RecipesController < ApplicationController
   def recipe_params
     params.require(:recipe).permit(:title, :description, :rating, :source, :author)
   end
-  
-
 
 
 end

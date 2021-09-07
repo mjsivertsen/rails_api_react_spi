@@ -53,19 +53,28 @@ function App() {
     })
     setEditRecipe(null);
     setRecipes(updateRecipes)
+  };
 
+  const deleteRecipe = async (id) => {
+    try{ 
+      await axios.delete(`/api/recipes/${id}`);
+      const filterRecipes = recipes.filter((recipe) => recipe.id !== id);
+      setRecipes(filterRecipes);
+  } catch {
+    alert("Hold up jelly belly, something went wrong.");
   }
+};
 
-  const getPage = () => {
+  const getForm = () => {
     return showForm ? <RecipeForm addRecipe={addRecipe}/> :
            editRecipe ? <RecipeForm {...editRecipe} updateRecipe={updateRecipe} setEditRecipe={setEditRecipe}/> :
-           <Recipes recipes={recipes} clickHandler={clickHandler} />
+           <Recipes recipes={recipes} deleteRecipe={deleteRecipe} clickHandler={clickHandler} />
   };
 
   return (
     <div className="App">
       {getNavBar()}
-      {getPage()}
+      {getForm()}
       {/* <div> */}
         {/* <Switch>
           <Route exact path ="/" component={() => <h1> Home </h1>} />

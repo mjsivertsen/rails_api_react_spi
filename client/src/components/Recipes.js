@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Recipe from "./Recipe";
 
 const Recipes = (props) => {
-  const {setShowForm, clickHandler} = props;  
+  const {setShowForm, clickHandler, deleteRecipe} = props;  
   const [recipes, setRecipes] = useState([]);
   
   useEffect(() => {
@@ -27,7 +27,7 @@ const Recipes = (props) => {
       )};
     
     return recipes.map( recipe => {
-      return <Recipe key={recipe.id} clickHandler={clickHandler} setShowForm={setShowForm} {...recipe} />
+      return <Recipe key={recipe.id} clickHandler={clickHandler} setShowForm={setShowForm} deleteRecipe={deleteRecipe} {...recipe} />
      })  
   };
 
