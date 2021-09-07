@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Recipe from "./Recipe";
 
 const Recipes = (props) => {
+  const {setShowForm, clickHandler} = props;  
   const [recipes, setRecipes] = useState([]);
   
   useEffect(() => {
@@ -18,14 +19,15 @@ const Recipes = (props) => {
     }
   };
 
+  
   const renderRecipes = () => {
-    if(recipes.length == 0){
+    if(recipes.length === 0){
       return (
       <h1> No Recipes to Show </h1>
       )};
     
     return recipes.map( recipe => {
-      return <Recipe key={recipe.id} {...recipe} />
+      return <Recipe key={recipe.id} clickHandler={clickHandler} setShowForm={setShowForm} {...recipe} />
      })  
   };
 
