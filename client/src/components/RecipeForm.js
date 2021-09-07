@@ -2,7 +2,7 @@ import {useState} from "react";
 import axios from "axios";
 
 const RecipeForm = (props) => {
-  const { id } = props;
+  const { id, addRecipe, updateRecipe } = props;
   const [title, setTitle] = useState(props.title);
   const [description, setDescription] = useState(props.description);
   const [rating, setRating] = useState(props.rating);
@@ -20,9 +20,11 @@ const RecipeForm = (props) => {
     if(id){
       let res = await axios.put(`/api/recipes/${id}`, recipe)
       console.log(res)
+      updateRecipe(res.data)
     } else {
       let res = await axios.post("/api/recipes", recipe)
       console.log(res)
+      addRecipe(res.data)
     }
   };
 

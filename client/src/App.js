@@ -38,13 +38,27 @@ function App() {
   };
 
   const clickHandler = (id) => {
-    let recipe = recipe.find( recipe => recipe.id === id)
+    let recipe = recipes.find(recipe => recipe.id === id)
     setEditRecipe(recipe)
   };
 
+  const addRecipe = (recipe) => {
+    setShowForm(false)
+    setRecipes([recipe, ...recipes])
+  };
+
+  const updateRecipe = (editedRecipe) => {
+    const updateRecipes = recipes.map (recipe => {
+      return recipe.id !== editedRecipe.id ? recipe : editedRecipe
+    })
+    setEditRecipe(null);
+    setRecipes(updateRecipes)
+
+  }
+
   const getPage = () => {
-    return showForm ? <RecipeForm /> :
-           editRecipe ? <RecipeForm {...editRecipe} setEditRecipe={setEditRecipe}/> :
+    return showForm ? <RecipeForm addRecipe={addRecipe}/> :
+           editRecipe ? <RecipeForm {...editRecipe} updateRecipe={updateRecipe} setEditRecipe={setEditRecipe}/> :
            <Recipes recipes={recipes} clickHandler={clickHandler} />
   };
 
