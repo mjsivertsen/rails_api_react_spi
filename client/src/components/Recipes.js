@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Recipe from "./Recipe";
 
 const Recipes = (props) => {
-  const {setShowForm, clickHandler, deleteRecipe} = props;  
+  const {setShowForm, clickHandler } = props;  
   const [recipes, setRecipes] = useState([]);
   
   useEffect(() => {
@@ -19,6 +19,15 @@ const Recipes = (props) => {
     }
   };
 
+  const deleteRecipe = async (id) => {
+    try{ 
+      await axios.delete(`/api/recipes/${id}`);
+      const filterRecipes = recipes.filter((recipe) => recipe.id !== id);
+      setRecipes(filterRecipes);
+  } catch {
+    alert("Hold up jelly belly, something went wrong.");
+  }
+};
   
   const renderRecipes = () => {
     if(recipes.length === 0){
