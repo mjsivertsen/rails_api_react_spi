@@ -3,7 +3,7 @@
 const RecipeForm = (props) => {
   const { id } = props;
 
-  return id? "EditRecipe" : "NewRecipe"
+  return id ? "Edit Recipe" : "Add Recipe"
 };
 
 export default RecipeForm;

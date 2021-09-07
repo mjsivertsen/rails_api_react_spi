@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Recipe from "./Recipe";
 
-
 const Recipes = (props) => {
   const [recipes, setRecipes] = useState([]);
   
