@@ -11,8 +11,10 @@ const RecipeForm = (props) => {
   const [author, setAuthor] = useState(props.author);
 
   const getFormName = () =>{
-    return id ? "Edit Recipe" : "Add Recipe"
+    return id ? "Edit Recipe" : "Add Recipe" 
   };
+  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()

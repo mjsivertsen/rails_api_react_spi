@@ -3,12 +3,13 @@ import React, { useState, useEffect } from "react";
 import Recipe from "./Recipe";
 
 const Recipes = (props) => {
-  const {setShowForm, clickHandler } = props;  
+  const { setShowForm, getForm, setEditRecipe } = props;  
+
   const [recipes, setRecipes] = useState([]);
   
   useEffect(() => {
     getRecipes()
-  }, [])
+  }, []);
 
   const getRecipes = async () => {
     try{ 
@@ -36,13 +37,13 @@ const Recipes = (props) => {
       )};
     
     return recipes.map( recipe => {
-      return <Recipe key={recipe.id} clickHandler={clickHandler} setShowForm={setShowForm} deleteRecipe={deleteRecipe} {...recipe} />
+      return <Recipe key={recipe.id} getForm={getForm} setShowForm={setShowForm} deleteRecipe={deleteRecipe} {...recipes} {...recipe}/>
      })  
   };
 
   return (
     <>
-    <h1> Recipes Here </h1>
+    <h1> Good Recipes for Good Michaela </h1>
     {renderRecipes()}
     </>
   );

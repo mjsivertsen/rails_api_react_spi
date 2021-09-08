@@ -4,15 +4,15 @@ import NavBar from "./components/NavBar";
 import Recipes from "./components/Recipes";
 import RecipeForm from "./components/RecipeForm";
 import { Switch, Route } from "react-router-dom";
+import HomeAbout from "./components/HomeAbout";
 import './App.css';
 
 
 
-function App() {
+const App = () => {
   const [recipes, setRecipes] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editRecipe, setEditRecipe] = useState(null);
-
   
   useEffect(() => {
     getRecipes()
@@ -25,21 +25,6 @@ function App() {
     } catch(err) {
       alert("error trying to get recipes, you did something wrong again you dink.")
     }
-  };
-
-  const getHome = () => {
-    setShowForm(false);
-    setEditRecipe(null);
-  };
-
-  const getNavBar = () => {
-    return (showForm || editRecipe) ? <div onClick={getHome}>Home</div> :
-    <div onClick={() => setShowForm(true)}>New</div>
-  };
-
-  const clickHandler = (id) => {
-    let recipe = recipes.find(recipe => recipe.id === id)
-    setEditRecipe(recipe)
   };
 
   const addRecipe = (recipe) => {
@@ -58,24 +43,29 @@ function App() {
   const getForm = () => {
     return showForm ? <RecipeForm addRecipe={addRecipe}/> :
            editRecipe ? <RecipeForm {...editRecipe} updateRecipe={updateRecipe} setEditRecipe={setEditRecipe}/> :
-           <Recipes recipes={recipes} clickHandler={clickHandler} />
+           <Recipes clickHandler={clickHandler} recipes={recipes} getForm={getForm} {...recipes}/>
+  };
+
+
+  const clickHandler = (id) => {
+    let recipe = recipes.find(recipe => recipe.id === id)
+    setEditRecipe(recipe);
   };
 
   return (
     <div className="App">
-      {getNavBar()}
-      {getForm()}
-      {/* <div> */}
-        {/* <Switch>
-          <Route exact path ="/" component={() => <h1> Home </h1>} />
-          <Route exact path ="/components/Recipes" component={Recipes} />
+      <NavBar getForm={getForm} setShowForm={setShowForm}/>
 
-        </Switch> */}
+      <div>
+    
+      <Switch>   
+          <Route exact path ="/" component={HomeAbout}/>
+          <Route exact path ="/Recipes" component={Recipes} />
+          <Route exact path ="/RecipeForm" component={RecipeForm} />
+      </Switch>
 
-      {/* </div> */}
+      </div>
       
-      
-      {/* <Recipes /> */}
     </div>
   );
 };

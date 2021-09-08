@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 
 
 const Recipe = (props) => {
-  const { id, title, description, rating, source, author, clickHandler, deleteRecipe } = props;
-  
+  const { id, title, description, rating, source, author, deleteRecipe, clickHandler } = props;
+
   return (
     <div>
     <h2>{title}</h2>
@@ -18,6 +18,5 @@ const Recipe = (props) => {
   );
 };
 
-//not sure why my anchor tag isn't working as a link?
 
 export default Recipe;
