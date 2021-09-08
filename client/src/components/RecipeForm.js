@@ -38,15 +38,15 @@ const RecipeForm = (props) => {
         <h1>{getFormName()}</h1>
         <form onSubmit={handleSubmit}>
           <p>Title:</p>
-          <input value={props.id.title} onChange={(e)=> setTitle(e.target.value)} />
+          <input value={props.title} onChange={(e)=> setTitle(e.target.value)} />
           <p>Description:</p>
-          <input value={props.id.description} onChange={(e)=> setDescription(e.target.value)} />
+          <input value={props.description} onChange={(e)=> setDescription(e.target.value)} />
           <p>Rating:</p>
-          <input value={props.id.rating} type="float" onChange={(e)=> setRating(e.target.value)} />
+          <input value={props.rating} type="float" onChange={(e)=> setRating(e.target.value)} />
           <p>Source:</p>
-          <input value={props.id.source} type="url" onChange={(e)=> setSource(e.target.value)} />
+          <input value={props.source} type="url" onChange={(e)=> setSource(e.target.value)} />
           <p>Author:</p>
-          <input value={props.id.author} onChange={(e)=> setAuthor(e.target.value)} />
+          <input value={props.author} onChange={(e)=> setAuthor(e.target.value)} />
           <br />
           <button type="submit">{!id? "Add Recipe" : "Update Recipe"} </button>
         </form>
