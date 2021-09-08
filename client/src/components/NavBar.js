@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-  const NavBar = (props) => {
-    const { getForm, setShowForm } = props;
+  const NavBar = () => {
 
     return (
       <div style={{display:'flex'}}>
@@ -14,7 +13,6 @@ import { Link } from "react-router-dom";
         </Link>
         <Link style={styles.link} to="RecipeForm">
           Add Recipe
-          {getForm}
         </Link>
       </div>
     );

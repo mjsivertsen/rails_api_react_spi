@@ -3,8 +3,6 @@ import React, { useState, useEffect } from "react";
 import Recipe from "./Recipe";
 
 const Recipes = (props) => {
-  const { setShowForm, getForm, setEditRecipe } = props;  
-
   const [recipes, setRecipes] = useState([]);
   
   useEffect(() => {
@@ -30,6 +28,21 @@ const Recipes = (props) => {
   }
 };
   
+
+
+  // const addRecipe = (recipe) => {
+  //   setShowForm(false)
+  //   setRecipes([recipe, ...recipes])
+  // };
+
+  // const getForm = () => {
+  //   return showForm ? <RecipeForm addRecipe={addRecipe}/> :
+  //          editRecipe ? <RecipeForm addRecipe={addRecipe} {...editRecipe} updateRecipe={updateRecipe} setEditRecipe={setEditRecipe}/> :
+  //          <Recipes clickHandler={clickHandler} recipes={recipes} getForm={getForm} {...recipes}/>
+  // };
+
+
+
   const renderRecipes = () => {
     if(recipes.length === 0){
       return (
@@ -37,7 +50,7 @@ const Recipes = (props) => {
       )};
     
     return recipes.map( recipe => {
-      return <Recipe key={recipe.id} getForm={getForm} setShowForm={setShowForm} deleteRecipe={deleteRecipe} {...recipes} {...recipe}/>
+      return <Recipe key={recipe.id} setRecipes={setRecipes} deleteRecipe={deleteRecipe} recipes={recipes} {...recipe} />
      })  
   };
 

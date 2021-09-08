@@ -1,13 +1,17 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import RecipeForm from "./RecipeForm";
 
 
 const Recipe = (props) => {
-  const { id, title, description, rating, source, author, deleteRecipe, clickHandler } = props;
+  const { id, title, description, rating, source, author, deleteRecipe, recipes, setRecipes} = props;
+  const [showForm, setShowForm] = useState(false);
 
   return (
     <div>
     <h2>{title}</h2>
-    <button onClick={()=>clickHandler(id)}>EDIT</button>
+    <button onClick = { () => setShowForm(!showForm)}> {!showForm ? "EDIT" : "DON'T EDIT" } </button>
+    {showForm && <RecipeForm id={id} recipes={recipes} setRecipe={setRecipes} {...recipes} showForm={showForm} setShowForm={setShowForm}/>}
+
     <button onClick={()=>deleteRecipe(id)}>DELETE</button>
     <p>{description}</p>
     <p>Rating: {rating}/5</p>

@@ -2,18 +2,18 @@ import {useState} from "react";
 import axios from "axios";
 
 const RecipeForm = (props) => {
-  const { id, addRecipe, updateRecipe } = props;
+  const { id, showForm, setShowForm } = props;
+  const [recipes, setRecipes] = useState([]);
   
-  const [title, setTitle] = useState(props.title);
-  const [description, setDescription] = useState(props.description);
-  const [rating, setRating] = useState(props.rating);
-  const [source, setSource] = useState(props.source);
-  const [author, setAuthor] = useState(props.author);
+  const [title, setTitle] = useState(props.title ? props.title : "");
+  const [description, setDescription] = useState(props.description ? props.description : "");
+  const [rating, setRating] = useState(props.rating ? props.rating : "");
+  const [source, setSource] = useState(props.source ? props.source : "");
+  const [author, setAuthor] = useState(props.author ? props.author : "");
 
   const getFormName = () =>{
     return id ? "Edit Recipe" : "Add Recipe" 
   };
-  
 
 
   const handleSubmit = async (e) => {
@@ -21,13 +21,15 @@ const RecipeForm = (props) => {
     let recipe = {title, description, rating, source, author}
     console.log(recipe)
     if(id){
-      let res = await axios.put(`/api/recipes/${id}`, recipe)
+      let res = await axios.put(`/api/recipes/${id}`, recipe);
+      let updatedRecipes = recipes.map((r) => (r.id === recipe.id ? recipe : r));
       console.log(res)
-      updateRecipe(res.data)
+      setRecipes(updatedRecipes);
+      setShowForm(!showForm);
     } else {
       let res = await axios.post("/api/recipes", recipe)
       console.log(res)
-      addRecipe(res.data)
+      setRecipes(res.data, ...recipes)
     }
   };
 
@@ -36,15 +38,15 @@ const RecipeForm = (props) => {
         <h1>{getFormName()}</h1>
         <form onSubmit={handleSubmit}>
           <p>Title:</p>
-          <input value={title} onChange={(e)=> setTitle(e.target.value)} />
+          <input value={props.id.title} onChange={(e)=> setTitle(e.target.value)} />
           <p>Description:</p>
-          <input value={description} onChange={(e)=> setDescription(e.target.value)} />
+          <input value={props.id.description} onChange={(e)=> setDescription(e.target.value)} />
           <p>Rating:</p>
-          <input value={rating} type="float" onChange={(e)=> setRating(e.target.value)} />
+          <input value={props.id.rating} type="float" onChange={(e)=> setRating(e.target.value)} />
           <p>Source:</p>
-          <input value={source} type="url" onChange={(e)=> setSource(e.target.value)} />
+          <input value={props.id.source} type="url" onChange={(e)=> setSource(e.target.value)} />
           <p>Author:</p>
-          <input value={author} onChange={(e)=> setAuthor(e.target.value)} />
+          <input value={props.id.author} onChange={(e)=> setAuthor(e.target.value)} />
           <br />
           <button type="submit">{!id? "Add Recipe" : "Update Recipe"} </button>
         </form>
