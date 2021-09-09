@@ -28,6 +28,10 @@ const Recipes = (props) => {
   }
 };
   
+  const updateRecipes = (recipe) => {
+  const updatedRecipes = recipes.map((r) => (r.id === recipe.id ? recipe : r));
+  setRecipes(updatedRecipes);
+  }
 
 
   // const addRecipe = (recipe) => {
@@ -50,7 +54,7 @@ const Recipes = (props) => {
       )};
     
     return recipes.map( recipe => {
-      return <Recipe key={recipe.id} setRecipes={setRecipes} deleteRecipe={deleteRecipe} recipes={recipes} {...recipe} />
+      return <Recipe key={recipe.id} updateRecipes={updateRecipes} setRecipes={setRecipes} deleteRecipe={deleteRecipe} recipes={recipes} {...recipe} />
      })  
   };
 

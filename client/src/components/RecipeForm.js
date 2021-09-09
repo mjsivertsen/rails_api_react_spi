@@ -2,14 +2,15 @@ import {useState} from "react";
 import axios from "axios";
 
 const RecipeForm = (props) => {
-  const { id, showForm, setShowForm } = props;
-  const [recipes, setRecipes] = useState([]);
+  const { id, showForm, setShowForm, updateRecipes } = props;
   
-  const [title, setTitle] = useState(props.title ? props.title : "");
-  const [description, setDescription] = useState(props.description ? props.description : "");
-  const [rating, setRating] = useState(props.rating ? props.rating : "");
-  const [source, setSource] = useState(props.source ? props.source : "");
-  const [author, setAuthor] = useState(props.author ? props.author : "");
+  const [title, setTitle] = useState(id ? props.title : "");
+  const [description, setDescription] = useState(id ? props.description : "");
+  const [rating, setRating] = useState(id ? props.rating : "");
+  const [source, setSource] = useState(id ? props.source : "");
+  const [author, setAuthor] = useState(id  ? props.author : "");
+
+
 
   const getFormName = () =>{
     return id ? "Edit Recipe" : "Add Recipe" 
@@ -22,14 +23,14 @@ const RecipeForm = (props) => {
     console.log(recipe)
     if(id){
       let res = await axios.put(`/api/recipes/${id}`, recipe);
-      let updatedRecipes = recipes.map((r) => (r.id === recipe.id ? recipe : r));
-      console.log(res)
-      setRecipes(updatedRecipes);
+      console.log(res.data);
       setShowForm(!showForm);
+      updateRecipes(res.data);
+      // props.history.push("/recipes");
     } else {
-      let res = await axios.post("/api/recipes", recipe)
-      console.log(res)
-      setRecipes(res.data, ...recipes)
+      let res = await axios.post("/api/recipes", recipe);
+      console.log(res);
+      props.history.push("/recipes");
     }
   };
 
